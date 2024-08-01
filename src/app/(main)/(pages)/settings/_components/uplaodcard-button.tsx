@@ -23,20 +23,24 @@ const UploadCareButton = ({ onUpload }: Props) => {
             }
         }
         ctxProviderRef.current?.addEventListener('file-upload-success', handleUpload)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
-        <div>
+        <div >
             <lr-config
                 ctx-name="my-uploader"
-                pubkey="a9428ff5ff90ae7a64eb"
+                pubkey="48708f199f9833403871"
+                max-local-file-size-bytes="1000000000"
+                img-only="true"
+                source-list="local, url, camera, dropbox, gdrive"
             />
 
             <lr-file-uploader-regular
                 ctx-name="my-uploader"
-                css-src={`https://cdn.jsdelivr.net/npm/@uploadcare/blocks@0.35.2/web/lr-file-uploader-regular.min.css`}
+                class="my-config uc-dark"
             />
+
 
             <lr-upload-ctx-provider
                 ctx-name="my-uploader"

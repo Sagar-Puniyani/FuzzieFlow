@@ -9,7 +9,7 @@ import { UserButton } from "@clerk/nextjs"
 
 export function InfoBar() {
     return (
-        <div>
+        <div className="flex flex-row gap-12" >
             <TooltipProvider>
                 <Tooltip>
                     <TooltipTrigger >

@@ -43,9 +43,7 @@ const ProfilePicture = ({ userImage, onDelete, onUpload }: Props) => {
                         </Button>
                     </>
                 ) : (
-                    <UploadCareButton onUpload={function (e: string) {
-                            throw new Error('Function not implemented.')
-                        } } />
+                    <UploadCareButton onUpload={onUpload} />
                 )}
             </div>
         </div>

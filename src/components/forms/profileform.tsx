@@ -18,7 +18,7 @@ import { Button } from '../ui/button'
 import { Loader2 } from 'lucide-react'
 
 type Props = {
-    user: any,
+    user: any  
     onUpdate?: any
 }
 
@@ -28,20 +28,28 @@ const ProfileForm = ({ user, onUpdate }: Props) => {
         mode: 'onChange',
         resolver: zodResolver(EditUserProfileSchema),
         defaultValues: {
-            name: '',
-            email: '',
+            name: user?.name,
+            email: user?.email,
         },
     })
 
-    const handleSubmit = async (values: z.infer<typeof EditUserProfileSchema>) => {
+    const handleSubmit = async (
+        values: z.infer<typeof EditUserProfileSchema>
+    ) => {
         setIsLoading(true)
         await onUpdate(values.name)
         setIsLoading(false)
     }
 
+    useEffect(() => {
+        form.reset({ name: user?.name, email: user?.email })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user])
+
     return (
         <Form {...form}>
-            <form className='flex flex-col gap-6'
+            <form
+                className="flex flex-col gap-6"
                 onSubmit={form.handleSubmit(handleSubmit)}
             >
                 <FormField
@@ -62,17 +70,16 @@ const ProfileForm = ({ user, onUpdate }: Props) => {
                     )}
                 />
                 <FormField
-                    disabled={true}
                     control={form.control}
-                    name="name"
+                    name="email"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="text-lg">User full name</FormLabel>
+                            <FormLabel className="text-lg">Email</FormLabel>
                             <FormControl>
                                 <Input
-                                    placeholder="Email"
-                                    type='email'
                                     {...field}
+                                    placeholder="Email"
+                                    type="email"
                                 />
                             </FormControl>
                             <FormMessage />
