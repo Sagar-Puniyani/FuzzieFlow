@@ -11,24 +11,32 @@ export async function POST(req: Request) {
 
         console.log('✅', body)
 
-        db.user.upsert({
-            where : {clerkId : id},
+        const dbuserInstance = db.user.upsert({
+            where: { clerkId: id },
             update: {
                 email,
-                name : first_name || '',
-                profileImage : image_url
+                name: first_name || '',
+                profileImage: image_url
             },
             create: {
-                clerkId: id ,
+                clerkId: id,
                 email,
-                name : first_name || '',
-                profileImage : image_url
+                name: first_name || '',
+                profileImage: image_url
             }
         })
-        
+
+        console.log("user db instance")
+
+        if (!dbuserInstance){
+            return  NextResponse.json({
+                user : dbuserInstance
+            },{status: 400})
+        }
+
 
         return NextResponse.json('User updated in database successfully',{status : 200 })
-    } catch (error : any ) {
+    } catch (error: any) {
         console.error('Error updating database:', error)
         return new NextResponse('Error updating user in database', { status: 500 })
     }
